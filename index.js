@@ -1,19 +1,22 @@
 const Nightmare = require('nightmare');
-const nightmare = Nightmare({ show: false });
+const chai = require('chai')
+const expect = chai.expect
 
-const URL = 'http://blog.oscarmorrison.com/nightmarejs-on-heroku-the-ultimate-scraping-setup/';
-console.log('Welcome to Nightmare scrape\n==========');
+describe('test duckduckgo search results', () => {
+    it('should find the nightmare github link first', function (done) {
+        this.timeout('20s')
 
-nightmare
-    .goto(URL)
-    .wait('.post-title')
-    .evaluate(() => document.querySelector('.post-title').textContent)
-    .end()
-    .then((result) => {
-        console.log(result);
-        console.log('=========\nAll done');
+        const nightmare = Nightmare()
+        nightmare
+            .goto('https://duckduckgo.com')
+            .type('#search_form_input_homepage', 'github nightmare')
+            .click('#search_button_homepage')
+            .wait('#links .result__a')
+            .evaluate(() => document.querySelector('#links .result__a').href)
+            .end()
+            .then(link => {
+                expect(link).to.equal('https://github.com/segmentio/nightmare')
+                done()
+            })
     })
-    .catch((error) => {
-        console.error('an error has occurred: ' + error);
-    })
-    .then(() => (console.log('process exit'), process.exit()));
+})

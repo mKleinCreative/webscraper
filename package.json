@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-      "start": "node index.js"
+    "start": "node index.js",
+    "test": "mocha --timeout 20000"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,12 @@
   },
   "homepage": "https://github.com/oscarmorrison/nightmare-heroku",
   "dependencies": {
+    "chai": "^4.2.0",
+    "cheerio": "^1.0.0-rc.2",
+    "co": "^4.6.0",
+    "co-mocha": "^1.2.2",
     "electron": "^1.6.10",
+    "mocha": "^5.2.0",
     "nightmare": "^2.10.0"
   }
 }
